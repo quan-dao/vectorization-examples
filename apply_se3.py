@@ -61,6 +61,11 @@ def main():
     print('points: ', points.shape)
     show_point_cloud(points)
 
+    # remove points outside range
+    pc_range = np.array([-51.2, -51.2, -3., 51.2, 51.2, 1.0])
+    points = points[np.logical_and(np.all(points > pc_range[:3], axis=1), np.all(points < pc_range[3:], axis=1))]
+    show_point_cloud(points)
+
     angle = np.deg2rad(45)
     cos, sin = np.cos(angle), np.sin(angle)
     tx, ty, tz = [10., 5., 0.]
